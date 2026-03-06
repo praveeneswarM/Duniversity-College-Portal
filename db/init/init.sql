@@ -59,3 +59,20 @@ CREATE TABLE IF NOT EXISTS exam_schedules (
   published_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   UNIQUE KEY unique_branch (branch)
 );
+
+-- Create users database
+CREATE DATABASE IF NOT EXISTS users_db;
+
+-- Grant privileges to college_user for users_db
+GRANT ALL PRIVILEGES ON users_db.* TO 'college_user'@'%';
+FLUSH PRIVILEGES;
+
+-- Create tables in users_db
+USE users_db;
+
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(100) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
