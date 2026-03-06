@@ -9,6 +9,7 @@ const {
   LEAVE_DB,
   TIMETABLE_DB,
   EXAMS_DB,
+  USER_DB,
   DB_PORT
 } = process.env;
 
@@ -85,3 +86,15 @@ module.exports = {
   timetableDB,
   examsDB
 };
+
+// User DB
+const userDB = createPool(USER_DB);
+
+userDB.getConnection((err, connection) => {
+  if (err) {
+    console.error('❌ Database connection failed (user_db):', err.message);
+  } else {
+    console.log('✅ Connected to MySQL database: user_db');
+    connection.release();
+  }
+});
