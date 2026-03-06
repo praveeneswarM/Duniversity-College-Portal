@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  front-end:
+    image: praveenx03/duniversity:v1.1.0
+    container_name: duniversity
+    ports:
+      - "3002:3000"
+    networks:
+      - mynet
+    env_file:
+      - .env
+    depends_on:
+      - database
+  
+  database:
+    image: mariadb
+    container_name: mariadb
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
+    networks:
+      - mynet
+  
+networks:
+  mynet:
