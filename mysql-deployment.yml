@@ -58,10 +58,17 @@ spec:
         volumeMounts:
         - name: mysql-storage
           mountPath: /var/lib/mysql 
+        - name: initdb-volume
+          mountPath: /docker-entrypoint-initdb.d
+
       volumes:
         - name: mysql-storage
           persistentVolumeClaim:
             claimName: duni-pvc
+        
+        - name: initdb-volume
+          configMap:
+            name: mysql-initdb
 ---
 apiVersion: v1
 kind: Service
