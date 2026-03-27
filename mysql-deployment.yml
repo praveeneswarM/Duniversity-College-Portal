@@ -11,7 +11,7 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 1
+      maxUnavailable: 0
       maxSurge: 1
   template:
     metadata:
@@ -37,15 +37,9 @@ spec:
                 name: duni-secret
                 key: MYSQL_ROOT_PASSWORD
           
-          # - name: MYSQL_DATABASE
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: duni-secret
-          #       key: MYSQL_DATABASE
-          
           - name: MYSQL_USER
             valueFrom:
-              secretKeyRef:
+              configMapKeyRef:
                 name: duni-secret
                 key: DB_USER
             
@@ -70,6 +64,7 @@ spec:
         volumeMounts:
         - name: mysql-storage
           mountPath: /var/lib/mysql 
+          
         - name: initdb-volume
           mountPath: /docker-entrypoint-initdb.d
 
