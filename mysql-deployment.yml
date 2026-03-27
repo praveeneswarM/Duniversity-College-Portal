@@ -55,9 +55,9 @@ spec:
         #         name: duni-secret
         #         key: DB_PASSWORD
         envFrom:
-            - configMapRef:
+          - configMapRef:
               name: duni-config
-            - secretRef:
+          - secretRef:
               name: duni-secret
           
         volumeMounts:
