@@ -3,7 +3,7 @@ kind: StorageClass
 metadata:
   name: duni-sc 
 provisioner: nfs.csi.k8s.io 
-parametes:
+parameters:
   server: 10.0.1.213
   path: /var/nfs/general/csi-mysql 
   readOnly: "false"
