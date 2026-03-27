@@ -54,6 +54,11 @@ spec:
           #     secretKeyRef:
           #       name: duni-secret
           #       key: DB_PASSWORD
+          envFrom:
+            - configMapRef:
+                name: duni-config
+            - secretRef:
+                name: duni-secret
 
 ---
 apiVersion: v1

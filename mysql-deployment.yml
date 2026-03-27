@@ -30,36 +30,36 @@ spec:
           limits:
             memory: "512Mi"
             cpu: "200m"
-        env:
-          - name: MYSQL_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: duni-secret
-                key: MYSQL_ROOT_PASSWORD
+        # env:
+        #   - name: MYSQL_ROOT_PASSWORD
+        #     valueFrom:
+        #       secretKeyRef:
+        #         name: duni-secret
+        #         key: MYSQL_ROOT_PASSWORD
           
-          - name: MYSQL_USER
-            valueFrom:
-              configMapKeyRef:
-                name: duni-config
-                key: DB_USER
+        #   - name: MYSQL_USER
+        #     valueFrom:
+        #       configMapKeyRef:
+        #         name: duni-config
+        #         key: DB_USER
             
-          - name: MYSQL_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: duni-secret
-                key: DB_PASSWORD
+        #   - name: MYSQL_PASSWORD
+        #     valueFrom:
+        #       secretKeyRef:
+        #         name: duni-secret
+        #         key: DB_PASSWORD
           
-          - name: DB_HOST
-            valueFrom:
-              configMapKeyRef:
-                name: duni-config
-                key: DB_HOST
+        #   - name: DB_HOST
+        #     valueFrom:
+        #       configMapKeyRef:
+        #         name: duni-config
+        #         key: DB_HOST
 
-        # envFrom:
-        #   - configMapRef:
-        #       name: duni-config
-        #   - secretRef:
-        #       name: duni-secret
+        envFrom:
+          - configMapRef:
+              name: duni-config
+          - secretRef:
+              name: duni-secret
           
         volumeMounts:
         - name: mysql-storage
