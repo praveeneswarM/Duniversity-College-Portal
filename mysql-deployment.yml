@@ -5,7 +5,7 @@ metadata:
   namespace: praveen-ns
 spec:
   replicas: 1
-  selctor:
+  selctors:
     matchLabels:
       app: mysql
   strategy:
