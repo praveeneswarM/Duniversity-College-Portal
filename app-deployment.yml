@@ -49,16 +49,11 @@ spec:
           #       name: duni-secret
           #       key: DB_USER
             
-          # - name: MYSQLDB_PASSWORD
+          # - name: MYSQL_PASSWORD
           #   valueFrom:
           #     secretKeyRef:
           #       name: duni-secret
           #       key: DB_PASSWORD
-          envFrom:
-            - configMapRef:
-                name: duni-config
-            - secretRef:
-                name: duni-secret
 
 ---
 apiVersion: v1

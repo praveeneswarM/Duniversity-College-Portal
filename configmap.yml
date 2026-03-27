@@ -4,6 +4,7 @@ metadata:
   name: duni-config
   namespace: praveen-ns 
 data:
+  DB_USER: "college_user"
   DB_HOST: "mysql-service"
   DB_PORT: "3306"
   GRIEVANCE_DB: "grievance_db"
