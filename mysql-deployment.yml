@@ -40,7 +40,7 @@ spec:
           - name: MYSQL_USER
             valueFrom:
               configMapKeyRef:
-                name: duni-secret
+                name: duni-config
                 key: DB_USER
             
           - name: MYSQL_PASSWORD
@@ -64,7 +64,7 @@ spec:
         volumeMounts:
         - name: mysql-storage
           mountPath: /var/lib/mysql 
-          
+
         - name: initdb-volume
           mountPath: /docker-entrypoint-initdb.d
 
