@@ -4,5 +4,5 @@ metadata:
   name: duni-config
   namespace: praveen-ns 
 data:
-  DB_HOST: "mariadb"
+  DB_HOST: "mysql-service"
   DB_PORT: "3306"
