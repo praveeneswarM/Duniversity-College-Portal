@@ -57,9 +57,9 @@ spec:
           
           - name: DB_HOST
             valueFrom:
-              secretKeyRef:
-                name: duni-secret
-                key: DB
+              configMapRef:
+                name: duni-config
+                key: DB_HOST
 
         # envFrom:
         #   - configMapRef:
