@@ -6,3 +6,7 @@ metadata:
 data:
   DB_HOST: "mysql-service"
   DB_PORT: "3306"
+  GRIEVANCE_DB: "grievance_db"
+  LEAVE_DB: "leave_db"
+  TIMETABLE_DB: "timetable_db"
+  EXAMS_DB: "exams_db"
