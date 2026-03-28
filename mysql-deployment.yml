@@ -1,10 +1,11 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: mysql-deploy 
   namespace: praveen-ns
 spec:
-  replicas: 1
+  replicas: 3
+  minReadySeconds: 10
   selector:
     matchLabels:
       app: mysql
@@ -18,6 +19,7 @@ spec:
       labels:
         app: mysql
     spec:
+      terminationGracePeriodSeconds: 10
       containers:
       - name: mysql-container 
         image: mysql
@@ -68,14 +70,19 @@ spec:
         - name: initdb-volume
           mountPath: /docker-entrypoint-initdb.d
 
-      volumes:
-        - name: mysql-storage
-          persistentVolumeClaim:
-            claimName: duni-pvc
-        
+      volumes:        
         - name: initdb-volume
           configMap:
             name: mysql-initdb
+  volumeClaimTemplate:
+    - metadata:
+        name: mysql-storage
+      spec:
+        accessModes: ["ReadWriteMany"]
+        storageClassName: duni-sc
+        resources:
+          requests:
+            storage: 5Gi
 ---
 apiVersion: v1
 kind: Service
@@ -87,5 +94,5 @@ spec:
     app: mysql
   ports:
   - port: 3306
-    targetPort: 3306
-  type: ClusterIP
+    targetPort: 3306 
+  clusterIP: None
