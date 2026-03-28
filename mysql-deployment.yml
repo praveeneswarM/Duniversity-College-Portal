@@ -4,7 +4,7 @@ metadata:
   name: mysql-deploy 
   namespace: praveen-ns
 spec:
-  replicas: 3
+  replicas: 1
   minReadySeconds: 10
   selector:
     matchLabels:
