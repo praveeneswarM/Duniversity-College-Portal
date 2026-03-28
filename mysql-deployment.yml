@@ -9,7 +9,7 @@ spec:
   selector:
     matchLabels:
       app: mysql
-  strategy:
+  updateStrategy:
     type: RollingUpdate
     rollingUpdate:
       maxUnavailable: 0
@@ -90,9 +90,9 @@ metadata:
   name: mysql-service
   namespace: praveen-ns
 spec:
+  clusterIP: None
   selector:
     app: mysql
   ports:
   - port: 3306
-    targetPort: 3306 
-  clusterIP: None
+    name: mysql-storage 
