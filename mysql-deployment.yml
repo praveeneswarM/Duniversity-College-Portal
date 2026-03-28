@@ -74,7 +74,7 @@ spec:
         - name: initdb-volume
           configMap:
             name: mysql-initdb
-  volumeClaimTemplate:
+  volumeClaimTemplates:
     - metadata:
         name: mysql-storage
       spec:
