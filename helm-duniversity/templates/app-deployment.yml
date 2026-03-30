@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: duniversity
+  name: {{ .Vlaues.app.name }}
   namespace: praveen-ns 
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: duni-container
-          image: praveenx03/duniversity:v1.1.0
+          image: {{ .Values.image.repository }}: {{ .Values.image.tag }}
           resources:
             requests:
               memory: "128Mi"
@@ -29,7 +29,7 @@ spec:
               memory: "256Mi"
               cpu: "200m"
           ports:
-            - containerPort: 3000
+            - containerPort: {{ .Values.ports.containerPort }}
           # env:
           # - name: DB_HOST
           #   valueFrom:

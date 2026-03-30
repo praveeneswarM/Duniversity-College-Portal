@@ -1,0 +1,11 @@
+app:
+  name: duniversity
+
+replicaCount: 2
+
+image:
+  repository: praveenx03/duniversity
+  tag: v1.1.0
+
+ports:
+  containerPort: 3000
