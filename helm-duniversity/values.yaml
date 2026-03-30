@@ -1,7 +1,7 @@
 app:
   name: duniversity
 
-replicaCount: 2
+replicaCount: 1
 
 image:
   repository: praveenx03/duniversity
