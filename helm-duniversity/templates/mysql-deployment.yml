@@ -78,7 +78,7 @@ spec:
     - metadata:
         name: {{ .Values.mysql.vct.name }}
       spec:
-        accessModes: {{ .Values.mysql.vct.accessModes }}
+        accessModes: ["ReadWriteMany"]
         storageClassName: {{ .Values.sc.name }}
         resources:
           requests:

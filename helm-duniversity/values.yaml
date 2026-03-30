@@ -29,7 +29,6 @@ mysql:
   hostPort: 3306
   vct:
     name: mysql-storage
-    accessModes: ["ReadWriteMany"]
     resources:
       requests:
         storage: 5Gi
