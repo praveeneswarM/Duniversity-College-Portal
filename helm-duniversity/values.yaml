@@ -8,4 +8,34 @@ image:
   tag: v1.1.0
 
 ports:
-  containerPort: 3000
+  containerPort: 
+  hostPort: 3001
+
+mysql:
+  app:
+    name: mysql-deploy
+  replicaCount: 1
+  minReadySeconds: 10
+  terminationGracePeriodSeconds: 10
+  ports:
+    port: 3306
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      memory: "512Mi"
+      cpu: "200m"
+  hostPort: 3306
+  vct:
+    name: mysql-storage
+    accessModes: ["ReadWriteMany"]
+    resources:
+      requests:
+        storage: 5Gi
+
+sc:
+  name: duni-sc
+  provisioner: nfs.csi.k8s.io 
+  server: 10.0.1.213
+  share: /var/nfs/general/csi-mysql 

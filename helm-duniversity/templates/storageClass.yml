@@ -1,8 +1,8 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: duni-sc 
-provisioner: nfs.csi.k8s.io 
+  name: {{ .Values.sc.name }} 
+provisioner: {{ .Values.sc.provisioner }}
 parameters:
-  server: 10.0.1.213
-  share: /var/nfs/general/csi-mysql 
+  server: {{ .Values.sc.server }}
+  share: {{ .Values.sc.share }}

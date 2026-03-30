@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mysql-deploy 
+  name: {{ .Values.mysql.app.name }}
   namespace: praveen-ns
 spec:
-  replicas: 1
-  minReadySeconds: 10
+  replicas: {{ .Values.mysql.replicaCount }}
+  minReadySeconds: {{ .Values.mysql.minReadySeconds }}
   selector:
     matchLabels:
       app: mysql
@@ -19,19 +19,19 @@ spec:
       labels:
         app: mysql
     spec:
-      terminationGracePeriodSeconds: 10
+      terminationGracePeriodSeconds: {{ .Values.mysql.terminationGracePeriodSeconds }}
       containers:
       - name: mysql-container 
         image: mysql
         ports:
-        - containerPort: 3306
+        - containerPort: {{ .Values.mysql.ports.port }}
         resources:
           requests:
-            memory: "128Mi"
-            cpu: "100m"
+            memory: {{ .Values.mysql.resources.requests.memory }}
+            cpu: {{ .Values.mysql.resources.requests.cpu }}
           limits:
-            memory: "512Mi"
-            cpu: "200m"
+            memory: {{ .Values.mysql.resources.limits.memory }}
+            cpu: {{ .Values.mysql.resources.limits.cpu }}
         # env:
         #   - name: MYSQL_ROOT_PASSWORD
         #     valueFrom:
@@ -64,7 +64,7 @@ spec:
               name: duni-secret
           
         volumeMounts:
-        - name: mysql-storage
+        - name: {{ .Values.mysql.vct.name }}
           mountPath: /var/lib/mysql 
 
         - name: initdb-volume
@@ -76,13 +76,13 @@ spec:
             name: mysql-initdb
   volumeClaimTemplates:
     - metadata:
-        name: mysql-storage
+        name: {{ .Values.mysql.vct.name }}
       spec:
-        accessModes: ["ReadWriteMany"]
-        storageClassName: duni-sc
+        accessModes: {{ .Values.mysql.vct.accessModes }}
+        storageClassName: {{ .Values.sc.name }}
         resources:
           requests:
-            storage: 5Gi
+            storage: {{ .Values.mysql.vct.resources.requests.storage }}
 ---
 apiVersion: v1
 kind: Service
@@ -95,5 +95,5 @@ spec:
     app: mysql
   ports:
   - name: mysql
-    port: 3306
-    targetPort: 3306
+    port: {{ .Values.mysql.hostPort }}
+    targetPort: {{ .Values.mysql.ports.port }}

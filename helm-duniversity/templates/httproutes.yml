@@ -19,4 +19,4 @@ spec:
               replacePrefixMatch: /
       backendRefs:
         - name: duni-service
-          port: 3001
+          port: {{ .Values.ports.hostPort }}
