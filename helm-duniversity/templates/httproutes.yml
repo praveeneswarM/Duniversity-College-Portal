@@ -18,5 +18,5 @@ spec:
               type: ReplacePrefixMatch
               replacePrefixMatch: /
       backendRefs:
-        - name: mysql-service
+        - name: duni-service
           port: 3001
