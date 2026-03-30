@@ -1,0 +1,99 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql-deploy 
+  namespace: praveen-ns
+spec:
+  replicas: 1
+  minReadySeconds: 10
+  selector:
+    matchLabels:
+      app: mysql
+  updateStrategy:
+    type: RollingUpdate
+    # rollingUpdate:
+    #   maxUnavailable: 0
+    #   maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: mysql-container 
+        image: mysql
+        ports:
+        - containerPort: 3306
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "200m"
+        # env:
+        #   - name: MYSQL_ROOT_PASSWORD
+        #     valueFrom:
+        #       secretKeyRef:
+        #         name: duni-secret
+        #         key: MYSQL_ROOT_PASSWORD
+          
+        #   - name: MYSQL_USER
+        #     valueFrom:
+        #       configMapKeyRef:
+        #         name: duni-config
+        #         key: DB_USER
+            
+        #   - name: MYSQL_PASSWORD
+        #     valueFrom:
+        #       secretKeyRef:
+        #         name: duni-secret
+        #         key: DB_PASSWORD
+          
+        #   - name: DB_HOST
+        #     valueFrom:
+        #       configMapKeyRef:
+        #         name: duni-config
+        #         key: DB_HOST
+
+        envFrom:
+          - configMapRef:
+              name: duni-config
+          - secretRef:
+              name: duni-secret
+          
+        volumeMounts:
+        - name: mysql-storage
+          mountPath: /var/lib/mysql 
+
+        - name: initdb-volume
+          mountPath: /docker-entrypoint-initdb.d
+
+      volumes:        
+        - name: initdb-volume
+          configMap:
+            name: mysql-initdb
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-storage
+      spec:
+        accessModes: ["ReadWriteMany"]
+        storageClassName: duni-sc
+        resources:
+          requests:
+            storage: 5Gi
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: mysql-service
+  namespace: praveen-ns
+spec:
+  clusterIP: None
+  selector:
+    app: mysql
+  ports:
+  - name: mysql
+    port: 3306
+    targetPort: 3306

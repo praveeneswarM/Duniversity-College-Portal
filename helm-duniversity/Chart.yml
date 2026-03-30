@@ -1,0 +1,6 @@
+apiVersion: v2
+name: duniversity
+description: this is duniversity project which is used for devops practice.
+type: application
+version: 1.1.0 #chart version
+appVersion: 1.1.0 # app version

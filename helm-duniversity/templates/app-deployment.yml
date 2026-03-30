@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: duniversity
+  namespace: praveen-ns 
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: duni 
+  template:
+    metadata:
+      labels:
+        app: duni 
+    spec:
+      containers:
+        - name: duni-container
+          image: praveenx03/duniversity:v1.1.0
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+          ports:
+            - containerPort: 3000
+          # env:
+          # - name: DB_HOST
+          #   valueFrom:
+          #     configMapKeyRef:
+          #       name: duni-config
+          #       key: DB_HOST
+            
+          # - name: DB_PORT
+          #   valueFrom:
+          #     configMapKeyRef:
+          #       name: duni-config
+          #       key: DB_PORT
+            
+          # - name: MYSQLDB_USER
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: duni-secret
+          #       key: DB_USER
+            
+          # - name: MYSQL_PASSWORD
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: duni-secret
+          #       key: DB_PASSWORD
+          envFrom:
+            - configMapRef:
+                name: duni-config
+            - secretRef:
+                name: duni-secret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: duni-service 
+  namespace: praveen-ns
+spec:
+  selector:
+    app: duni
+  ports:
+  - port: 3001
+    targetPort: 3000
+  type: NodePort
