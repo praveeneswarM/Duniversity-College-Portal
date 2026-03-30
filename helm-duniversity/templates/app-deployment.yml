@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Vlaues.app.name }}
+  name: {{ .Values.app.name }}
   namespace: praveen-ns 
 spec:
   replicas: {{ .Values.replicaCount }}
