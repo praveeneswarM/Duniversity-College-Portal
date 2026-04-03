@@ -36,5 +36,5 @@ mysql:
 sc:
   name: duni-sc
   provisioner: nfs.csi.k8s.io 
-  server: 10.0.1.213
+  server: 10.0.1.140
   share: /var/nfs/general/csi-mysql 
