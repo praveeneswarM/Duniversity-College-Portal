@@ -10,7 +10,7 @@ jobs:
 
     env:
       IMAGE_NAME: duniversity-actions
-      TAG: v1.1.0
+      TAG: v1.1.1
 
     steps:
 
